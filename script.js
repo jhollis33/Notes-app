@@ -2,7 +2,7 @@ const addbtn = document.getElementById(`add`);
 
 addbtn.addEventListener(`click`,()=> addNewNote(`Add New Note`));
 
-function addNewNote() {
+function addNewNote(text = ``) {
   const note = document.createElement(`div`);
   note.classList.add(`note`)
 
@@ -15,12 +15,24 @@ function addNewNote() {
             </button>
         </div>
 
-        <div class="hidden"></div>
-        <textarea class=""></textarea>`;
+        <div class="main ${text ? " " : "hidden"}"></div>
+        <textarea class="${text ? "hidden" : " "}"></textarea>`;
 
-        const deleteBtn = note.querySelector(`.delete`)
+        const deleteBtn = note.querySelector(`.delete`);
+        const editBtn = note.querySelector(`.edit`);
+        const main = note.querySelector(`.main`);
+        const textarea = note.querySelector(`textarea`);
+
+        text.value = text
+        main.innerHTML = text
+
         deleteBtn.addEventListener(`click`, ()=>{
           note.remove();
+        });
+
+        editBtn.addEventListener(`click`, ()=> {
+          main.classList.toggle(`hidden`)
+          textarea.classList.toggle(`hidden`)
         })
 
         document.body.appendChild(note);
